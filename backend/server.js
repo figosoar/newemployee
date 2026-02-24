@@ -67,22 +67,32 @@ app.post('/api/login', (req, res) => {
 // 获取表单页面URL的二维码
 app.get('/api/qrcode', async (req, res) => {
   try {
-    const formUrl = `${BASE_URL}/form.html`;
+    // 使用请求的 host 来生成 URL，确保在任何环境下都能正确工作
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const formUrl = BASE_URL !== `http://localhost:${PORT}` 
+      ? `${BASE_URL}/form.html` 
+      : `${protocol}://${host}/form.html`;
+    
+    console.log('生成二维码 URL:', formUrl);
+    
     const qrCodeDataUrl = await QRCode.toDataURL(formUrl, {
       width: 300,
-      margin: 2
+      margin: 2,
+      errorCorrectionLevel: 'M'
     });
     res.json({ qrcode: qrCodeDataUrl, url: formUrl });
   } catch (error) {
+    console.error('生成二维码失败:', error);
     res.status(500).json({ error: '生成二维码失败' });
   }
 });
 
 // 提交表单数据
 app.post('/api/submit', (req, res) => {
-  const { name, phone, department, carPlate } = req.body;
+  const { name, phone, department, idCard, carPlate } = req.body;
   
-  if (!name || !phone || !department || !carPlate) {
+  if (!name || !phone || !department || !idCard || !carPlate) {
     return res.status(400).json({ error: '所有字段都是必填的' });
   }
   
@@ -91,6 +101,7 @@ app.post('/api/submit', (req, res) => {
     name,
     phone,
     department,
+    idCard,
     carPlate,
     submitTime: new Date().toLocaleString('zh-CN')
   };
