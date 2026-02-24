@@ -41,6 +41,43 @@ npm start
 
 ## 部署到公网
 
+### 快速部署到 Railway
+
+**完整部署指南请查看**: [RAILWAY_DEPLOY.md](./RAILWAY_DEPLOY.md)
+
+**快速步骤**:
+
+1. 推送代码到 GitHub
+```bash
+git add .
+git commit -m "Deploy to Railway"
+git push
+```
+
+2. 在 Railway 连接仓库并部署
+
+3. **重要**: 添加环境变量
+   - 变量名: `BASE_URL`
+   - 变量值: `https://你的应用域名.railway.app`
+
+4. 重新部署
+
+5. 测试访问:
+   - 健康检查: `https://你的域名.railway.app/health`
+   - 表单页面: `https://你的域名.railway.app/form.html`
+   - 后台管理: `https://你的域名.railway.app/admin/index.html`
+
+### 部署问题排查
+
+如果页面显示不正确：
+1. 访问 `/health` 端点检查配置
+2. 访问 `/test.html` 测试静态文件服务
+3. 检查 Railway 日志
+4. 确认 `BASE_URL` 环境变量已设置
+5. 重新部署
+
+详细排查步骤请查看 [RAILWAY_DEPLOY.md](./RAILWAY_DEPLOY.md)
+
 查看 [DEPLOYMENT.md](./DEPLOYMENT.md) 了解如何部署到 Railway、Vercel、Heroku 等平台。
 
 ## 注意事项

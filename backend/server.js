@@ -19,8 +19,37 @@ const ADMIN_CREDENTIALS = {
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('frontend'));
-app.use('/admin', express.static('admin'));
+
+// 日志中间件
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// 静态文件服务 - 使用绝对路径
+const frontendPath = path.join(__dirname, '../frontend');
+const adminPath = path.join(__dirname, '../admin');
+
+console.log('Frontend path:', frontendPath);
+console.log('Admin path:', adminPath);
+
+app.use(express.static(frontendPath));
+app.use('/admin', express.static(adminPath));
+
+// 根路径重定向到表单页面
+app.get('/', (req, res) => {
+  res.redirect('/form.html');
+});
+
+// 健康检查端点
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    baseUrl: BASE_URL,
+    frontendPath: frontendPath,
+    adminPath: adminPath
+  });
+});
 
 // 管理员登录
 app.post('/api/login', (req, res) => {
