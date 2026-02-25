@@ -90,7 +90,7 @@ app.get('/api/qrcode', async (req, res) => {
 
 // 提交表单数据
 app.post('/api/submit', (req, res) => {
-  const { name, phone, department, idCard, carPlate } = req.body;
+  const { name, phone, department, idCard, carPlate, needFaceRecord } = req.body;
   
   if (!name || !phone || !department || !idCard || !carPlate) {
     return res.status(400).json({ error: '所有字段都是必填的' });
@@ -103,6 +103,7 @@ app.post('/api/submit', (req, res) => {
     department,
     idCard,
     carPlate,
+    needFaceRecord: needFaceRecord || false,
     submitTime: new Date().toLocaleString('zh-CN')
   };
   

@@ -59,6 +59,30 @@
       border-color: #667eea;
     }
     
+    .checkbox-group {
+      margin-bottom: 25px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .checkbox-label span {
+      font-size: 16px;
+      color: #333;
+    }
+    
     button {
       width: 100%;
       padding: 14px;
@@ -130,6 +154,13 @@
         <input type="text" id="carPlate" name="carPlate" required placeholder="例：京A12345">
       </div>
       
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="needFaceRecord" name="needFaceRecord">
+          <span>是否需要录人脸</span>
+        </label>
+      </div>
+      
       <button type="submit">提交</button>
       
       <div id="message" class="message"></div>
@@ -149,7 +180,8 @@
         phone: document.getElementById('phone').value,
         department: document.getElementById('department').value,
         idCard: document.getElementById('idCard').value,
-        carPlate: document.getElementById('carPlate').value
+        carPlate: document.getElementById('carPlate').value,
+        needFaceRecord: document.getElementById('needFaceRecord').checked
       };
 
       try {

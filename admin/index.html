@@ -273,13 +273,14 @@
           <th>部门</th>
           <th>身份证号</th>
           <th>车牌号</th>
+          <th>录人脸</th>
           <th>提交时间</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody id="tableBody">
         <tr>
-          <td colspan="8" class="empty">暂无数据</td>
+          <td colspan="9" class="empty">暂无数据</td>
         </tr>
       </tbody>
     </table>
@@ -376,7 +377,7 @@
         count.textContent = `(${submissions.length})`;
         
         if (submissions.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="8" class="empty">暂无数据</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="9" class="empty">暂无数据</td></tr>';
           return;
         }
         
@@ -388,6 +389,7 @@
             <td>${item.department}</td>
             <td>${item.idCard || '-'}</td>
             <td>${item.carPlate}</td>
+            <td>${item.needFaceRecord ? '✅ 是' : '❌ 否'}</td>
             <td>${item.submitTime}</td>
             <td>
               <button class="delete-btn" onclick="deleteSubmission(${item.id})">删除</button>
