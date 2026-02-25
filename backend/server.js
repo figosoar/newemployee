@@ -92,8 +92,8 @@ app.get('/api/qrcode', async (req, res) => {
 app.post('/api/submit', (req, res) => {
   const { name, phone, department, idCard, carPlate, needFaceRecord } = req.body;
   
-  if (!name || !phone || !department || !idCard || !carPlate) {
-    return res.status(400).json({ error: '所有字段都是必填的' });
+  if (!name || !phone || !department || !idCard) {
+    return res.status(400).json({ error: '姓名、手机号、部门和身份证号是必填的' });
   }
   
   const submission = {
@@ -102,7 +102,7 @@ app.post('/api/submit', (req, res) => {
     phone,
     department,
     idCard,
-    carPlate,
+    carPlate: carPlate || '-',
     needFaceRecord: needFaceRecord || false,
     submitTime: new Date().toLocaleString('zh-CN')
   };

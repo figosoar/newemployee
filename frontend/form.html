@@ -83,6 +83,14 @@
       color: #333;
     }
     
+    .hint {
+      display: block;
+      margin-top: 5px;
+      font-size: 13px;
+      color: #f39c12;
+      font-weight: normal;
+    }
+    
     button {
       width: 100%;
       padding: 14px;
@@ -142,6 +150,7 @@
       <div class="form-group">
         <label for="department">部门 *</label>
         <input type="text" id="department" name="department" required placeholder="请输入部门">
+        <small class="hint">如果不知道部门，请咨询人事部</small>
       </div>
       
       <div class="form-group">
@@ -150,8 +159,8 @@
       </div>
       
       <div class="form-group">
-        <label for="carPlate">车牌号 *</label>
-        <input type="text" id="carPlate" name="carPlate" required placeholder="例：京A12345">
+        <label for="carPlate">车牌号</label>
+        <input type="text" id="carPlate" name="carPlate" placeholder="例：京A12345（选填）">
       </div>
       
       <div class="form-group checkbox-group">
